@@ -10,6 +10,8 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+$this->title = 'Search System Parser';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -27,7 +29,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Search System Parser',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -36,9 +38,38 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Home', 'url' => ['/site/index'], 'visible' => !Yii::$app->user->isGuest],
+            [
+                'label' => 'Search results',
+                'items' => [
+                    ['label' => 'List', 'url' => ['/search-result/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Position', 'url' => ['/position-parser/index'], 'visible' => !Yii::$app->user->isGuest],
+                ],
+                'visible' => !Yii::$app->user->isGuest
+            ],
+            [
+                'label' => 'Keywords',
+                'items' => [
+                    ['label' => 'Theme', 'url' => ['/theme-keyword/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'List', 'url' => ['/keyword/index'], 'visible' => !Yii::$app->user->isGuest],
+                ],
+                'visible' => !Yii::$app->user->isGuest
+            ],
+            [
+                'label' => 'Search System',
+                'items' => [
+                    ['label' => 'List', 'url' => ['/search-system/index'], 'visible' => !Yii::$app->user->isGuest],
+                ],
+                'visible' => !Yii::$app->user->isGuest
+            ],
+            [
+                'label' => 'Domain',
+                'items' => [
+                    ['label' => 'List', 'url' => ['/domain/index'], 'visible' => !Yii::$app->user->isGuest],
+                ],
+                'visible' => !Yii::$app->user->isGuest
+            ],
+                        
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

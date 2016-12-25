@@ -183,6 +183,16 @@ class CurlClient implements ClientInterface
 			}
 		}
 
+		if ($type === 'html') {
+			$nodes = $parser->findHtml($pattern);
+
+			if (empty($nodes) === false) {
+				foreach ($nodes as $node) {
+					$result[] = $node;
+				}
+			}
+		}
+
 		if ($type === 'attribute') {
 			$result = $parser->filter($pattern)->extract(array($attr));
 		}

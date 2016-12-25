@@ -10,6 +10,7 @@ class BaseCommand extends Controller
 	public $verbose = false;
 	public $trace = false;
 	public $clear = false;
+	public $themeid;
 	protected $asciiGfx = <<<'DOC'
   ___             _         __      __   _               
  | _ \__ _ _ _ __(_)_ _  __ \ \    / /__| |__   _ _ _  _ 
@@ -18,15 +19,11 @@ class BaseCommand extends Controller
                         |___/                            
 DOC;
 	protected $asciiName = <<<'DOC'
-
-
-  ___                        _____             _          ___          _      
- | _ \__ _ _ _ ___ ___ _ _  |_   _|__ _  _ ___| |_ __ _  | _ \__ _ _ _| |_ ___
- |  _/ _` | '_(_-</ -_) '_|   | |/ _ \ || / _ \  _/ _` | |  _/ _` | '_|  _(_-<
- |_| \__,_|_| /__/\___|_|     |_|\___/\_, \___/\__\__,_| |_| \__,_|_|  \__/__/
-                                      |__/                                    
-
-
+                      _                 _                                          
+  ___ ___ __ _ _ _ __| |_    ____  _ __| |_ ___ _ __    _ __  __ _ _ _ ___ ___ _ _ 
+ (_-</ -_) _` | '_/ _| ' \  (_-< || (_-<  _/ -_) '  \  | '_ \/ _` | '_(_-</ -_) '_|
+ /__/\___\__,_|_| \__|_||_| /__/\_, /__/\__\___|_|_|_| | .__/\__,_|_| /__/\___|_|  
+                                |__/                   |_|                         
 DOC;
 
 	public function options($actionID)
@@ -35,6 +32,7 @@ DOC;
 			'verbose',
 			'trace',
 			'clear',
+			'themeid',
 		];
 	}
 
@@ -44,6 +42,7 @@ DOC;
 			'v' => 'verbose',
 			't' => 'trace',
 			'c' => 'clear',
+			'tid' => 'themeid',
 		];
 	}
 

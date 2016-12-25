@@ -18,6 +18,7 @@ Thumbs.db
 /config/params.php
 /cookiefile
 /recognize
+/upload
 /nohup
 composer.lock
 *.out

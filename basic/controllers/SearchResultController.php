@@ -35,6 +35,11 @@ class SearchResultController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            Yii::$app->user->logout();
+            return $this->goHome();
+        }
+
         $searchModel = new SearchResultSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -51,6 +56,11 @@ class SearchResultController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            Yii::$app->user->logout();
+            return $this->goHome();
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -63,6 +73,11 @@ class SearchResultController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            Yii::$app->user->logout();
+            return $this->goHome();
+        }
+
         $model = new SearchResult();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,6 +97,11 @@ class SearchResultController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            Yii::$app->user->logout();
+            return $this->goHome();
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -101,9 +121,34 @@ class SearchResultController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            Yii::$app->user->logout();
+            return $this->goHome();
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Lists all SearchResult models.
+     * @return mixed
+     */
+    public function actionTopDomain()
+    {
+        if (Yii::$app->user->isGuest) {
+            Yii::$app->user->logout();
+            return $this->goHome();
+        }
+
+        var_dump(Yii::$app->request->queryParams);
+        die;
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

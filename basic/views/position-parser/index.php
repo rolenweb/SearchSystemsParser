@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'keyword_id',
                 'label' => 'Keyword',
                 'content'=>function($data){
-                    return $data->keyword->key;
+                    return (empty($data->keyword) === false) ? $data->keyword->key : 'no set';
                 }
                 
             ],

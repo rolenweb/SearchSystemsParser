@@ -87,20 +87,21 @@ class SearchResult extends \yii\db\ActiveRecord
     public static function saveContent($content,$ssid,$keyid)
     {
         $out = [];
+        
         foreach ($content as $item) {
 
-            if (empty($item['title'])) {
+            if (empty($item->title)) {
                 $out['error'][] = 'The title is null';
             }
-            if (empty($item['description'])) {
+            if (empty($item->htmlSnippet)) {
                 $out['error'][] = 'The description is null';
             }
-            if (empty($item['url'])) {
+            if (empty($item->link)) {
                 $out['error'][] = 'The url is null';
             }
 
-            if (empty($item['title']) === false && empty($item['description']) === false && empty($item['url']) === false) {
-                $parse_url = parse_url($item['url']);
+            if (empty($item->title) === false && empty($item->htmlSnippet) === false && empty($item->link) === false) {
+                $parse_url = parse_url($item->link);
                 if (empty($parse_url['host'])) {
                     $out['error'][] = 'The host is null';
                     
@@ -113,9 +114,9 @@ class SearchResult extends \yii\db\ActiveRecord
                         $new->keyword_id = $keyid;
                         $new->search_system_id = $ssid;
                         $new->domain_id = $domainId;
-                        $new->title = $item['title'];
-                        $new->description = $item['description'];
-                        $new->url = $item['url'];
+                        $new->title = $item->title;
+                        $new->description = $item->htmlSnippet;
+                        $new->url = $item->link;
                         if ($new->save()) {
                             # code...
                         }else{

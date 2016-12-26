@@ -56,7 +56,7 @@ class ParserController extends BaseCommand
                     }
                     $this->whisper('Key: '.$keyword->key);
                     $content = Google::parse($keyword->key);
-
+                    
                     if (empty($content)) {
                         $this->error('Content is null');
                         return;
@@ -81,7 +81,7 @@ class ParserController extends BaseCommand
                     # code...
                     break;
             }
-            $sleep = rand(100,200);
+            $sleep = rand(50,70);
             $this->whisper('Sleep '.$sleep.' sec');
             sleep($sleep);
     	}

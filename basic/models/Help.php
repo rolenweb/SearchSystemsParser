@@ -16,7 +16,9 @@ class Help extends Model
         $pos = stripos($url,'/url?q=');
         if ($pos !== false) {
             return substr($url,$pos+7);
+        }else{
+        	return $url;	
         }
-        return;
+        
     }
 }

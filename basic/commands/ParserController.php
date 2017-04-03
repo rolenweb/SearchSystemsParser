@@ -34,7 +34,7 @@ class ParserController extends BaseCommand
     public function actionIndex($system)
     {
     	for (;;) { 
-    		
+    		$start = time();
             switch ($system) {
                 case 'google':
                     $this->whisper('Parse: Google');
@@ -81,6 +81,8 @@ class ParserController extends BaseCommand
                     # code...
                     break;
             }
+            $finish = time();
+            $dif = $finish-$start;
             $sleep = rand(50,70);
             $this->whisper('Sleep '.$sleep.' sec');
             sleep($sleep);

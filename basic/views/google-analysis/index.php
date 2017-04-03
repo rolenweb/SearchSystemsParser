@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\DomainSearch */
+/* @var $searchModel app\models\GoogleAnalysisSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Domains';
+$this->title = 'Google Analyses';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="domain-index">
+<div class="google-analysis-index">
 
-    <h3><?= Html::encode($this->title) ?></h3>
+    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p class="text-right">
-        <?= Html::a('Create Domain', ['create'], ['class' => 'btn btn-success']) ?>
+    <p>
+        <?= Html::a('Create Google Analysis', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,21 +25,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'title',
-            
             [
-                'attribute'=>'creation_date',
-                'label' => 'Registred',
+                'attribute'=>'keyword_id',
+                'label' => 'Keyword',
                 'content'=>function($data){
-                    return  (empty($data->creation_date) === false) ? date("d/m/Y",$data->creation_date) : '(No set)';
+                    return (empty($data->keyword) === false) ? $data->keyword->key : '(No set)';
                 }
                 
             ],
             [
+                'attribute'=>'domain_id',
+                'label' => 'Domain',
+                'content'=>function($data){
+                    return (empty($data->domain) === false) ? $data->domain->title : '(No set)';
+                }
+                
+            ],
+            'url:url',
+            [
                 'attribute'=>'created_at',
                 'label' => 'Created',
                 'content'=>function($data){
-                    return date("d/m/Y",$data->created_at);
+                    return date("d/m/Y H:i:s",$data->created_at);
                 }
                 
             ],
@@ -47,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'updated_at',
                 'label' => 'Updated',
                 'content'=>function($data){
-                    return date("d/m/Y",$data->updated_at);
+                    return date("d/m/Y H:i:s",$data->updated_at);
                 }
                 
             ],

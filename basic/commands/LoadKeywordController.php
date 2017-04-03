@@ -33,13 +33,64 @@ class LoadKeywordController extends BaseCommand
      * This command echoes what you have entered as the message.
      * @param string $message the message to be echoed.
      */
-    public function actionIndex()
+    public function actionIndex($type)
     {
     	if (empty($this->themeid)) {
             $this->listTheme();
             return;
         }
         
+        switch ($type) {
+            case 'txt':
+                $this->loadFromTxtFiles();
+                break;
+
+            case 'csv':
+                $this->loadFromCsv();
+                break;
+                    
+            default:
+                        # code...
+                break;
+        }        
+    }
+
+    public function loadFromCsv()
+    {
+        $files = FileHelper::findFiles(Yii::$app->basePath.DIRECTORY_SEPARATOR.self::FOLDER_UPLOAD);
+        if (empty($files)) {
+            $this->error('There are not files for load');
+            return;
+        }
+
+        foreach ($files as $file) {
+            if (($handle = fopen($file, "r")) !== FALSE) {
+                $nRow = 0;
+                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    if ($nRow != 0) {
+                        $this->success($data[0]);
+                        $new_key = new Keyword();
+                        $new_key->key = $data[0];
+                        $new_key->theme_keyword_id = (int)$this->themeid;
+                        if ($new_key->save()) {
+                            # code...
+                        }else{
+                            foreach ($new_key->errors as $error) {
+                                $this->error($error[0]);
+                            }
+                        }
+                    }
+                    $nRow++;
+                }
+                fclose($handle);
+            }
+        }
+        $this->deleteFiles();
+        
+    }
+
+    public function loadFromTxtFiles()
+    {
         $keys = $this->fileToArray();
         if (empty($keys)) {
             $this->error('The array of keys is null');

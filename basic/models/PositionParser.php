@@ -92,4 +92,28 @@ class PositionParser extends \yii\db\ActiveRecord
         $position->save();
         return $out;
     }
+
+    public function nextKey()
+    {
+        $keyword = $this->keyword;
+
+        $nextKeyword = Keyword::find()->where(
+            [
+                'and',
+                    [
+                        '>','id',$keyword->id
+                    ],
+                    [
+                        'theme_keyword_id' => $keyword->theme_keyword_id
+                    ]
+            ]
+        )->limit(1)->one();
+        if (empty($nextKeyword)) {
+            $out['error'][] = 'Keywords are finished';
+            return;
+        }
+        $this->keyword_id = $nextKeyword->id;
+        $this->save();
+        return;
+    }
 }

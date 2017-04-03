@@ -43,6 +43,9 @@ $this->title = 'Search System Parser';
                 'label' => 'Search results',
                 'items' => [
                     ['label' => 'List', 'url' => ['/search-result/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Spider', 'url' => ['/webspider/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Google Analysis', 'url' => ['/google-analysis/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Google Analysis Stats', 'url' => ['/google-analysis/stats'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Position', 'url' => ['/position-parser/index'], 'visible' => !Yii::$app->user->isGuest],
                 ],
                 'visible' => !Yii::$app->user->isGuest

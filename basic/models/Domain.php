@@ -40,6 +40,7 @@ class Domain extends \yii\db\ActiveRecord
         return [
             [['creation_date', 'created_at', 'updated_at'], 'integer'],
             [['title', 'registrar'], 'string', 'max' => 255],
+            [['title'],'unique'],
         ];
     }
 
@@ -62,6 +63,11 @@ class Domain extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SearchResult::className(), ['domain_id' => 'id'])->inverseOf('domain');
     }
+
+    public function getGoogleAnalysis()
+    {
+        return $this->hasMany(GoogleAnalysis::className(), ['domain_id' => 'id'])->inverseOf('domain');
+    }    
 
     public static function getIdByTitle($title)
     {

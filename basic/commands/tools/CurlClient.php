@@ -149,8 +149,7 @@ class CurlClient implements ClientInterface
 	public function parsePage2($url,$type = null,$ip = null, $port = null,$reffer = null,$post = 'no')
 	{	
 		$content = $this->setUrl($url)->getContentWithInfo2();
-		var_dump($content['info']['url']);
-		//die;
+		
 		if (empty($content['result']) === false) {
 			return $content['result'];
 		}

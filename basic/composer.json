@@ -19,7 +19,10 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "druidvav/antigate-client": "^0.1.0",
-        "imarc/google-site-search": "^2.0"
+        "imarc/google-site-search": "^2.0",
+        "fabpot/goutte": "^3.2",
+        "phois/whois": "dev-master",
+        "spatie/regex": "^1.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
